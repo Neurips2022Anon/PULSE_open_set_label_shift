@@ -184,7 +184,7 @@ class TotalNet(nn.Module):
         self.net = nn.Sequential(self.feature_extractor, self.cls)
 
 
-def get_model_STA(arch, num_classes, learning_rate, weight_decay, pretrained=False, features = True):
+def get_model_STA(arch, num_classes, learning_rate, weight_decay, pretrained=False, features = True, pretrained_model_dir=None):
     model = TotalNet(arch, num_classes, pretrained, features)
 
     optimizer_feats =  torch.optim.SGD(

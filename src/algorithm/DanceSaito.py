@@ -29,6 +29,7 @@ class DanceSaito(pl.LightningModule):
         hash: Optional[str] = None,
         pretrained: bool = False,
         seed: int = 0,
+        pretrained_model_dir: Optional[str] = None,
     ):
         super().__init__()
         self.num_classes = num_source_classes
@@ -42,7 +43,7 @@ class DanceSaito(pl.LightningModule):
             self.feature_optimizer, self.classifier_optimizer\
             =  get_model_dance(arch, dataset, self.num_outputs,\
             pretrained= pretrained, learning_rate= learning_rate,\
-            weight_decay= weight_decay, features=True, temp_scale=True)
+            weight_decay= weight_decay, features=True, temp_scale=True, pretrained_model_dir= pretrained_model_dir)
 
         self.lemniscate = get_linearaverage(self.feature_model, num_target_samples, 0.05, 0.0)
  

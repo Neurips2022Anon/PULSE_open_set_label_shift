@@ -28,6 +28,7 @@ class UANYou19(pl.LightningModule):
         hash: Optional[str] = None,
         pretrained: bool = False,
         seed: int = 0,
+        pretrained_model_dir: Optional[str] = None
     ):
         super().__init__()
         self.num_classes = num_source_classes
@@ -40,7 +41,7 @@ class UANYou19(pl.LightningModule):
 
         self.totalNet, self.optimizer_feature, self.optimizer_classifier, self.optimizer_discriminator, self.optimizer_discriminator_separate \
          = get_model_UAN(arch, self.num_classes, learning_rate, weight_decay,\
-            pretrained= pretrained, features=True)
+            pretrained= pretrained, features=True, pretrained_model_dir= pretrained_model_dir)
 
         self.learning_rate = learning_rate
         self.weight_decay = weight_decay

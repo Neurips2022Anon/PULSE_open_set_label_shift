@@ -30,6 +30,7 @@ class BackpropODASaito(pl.LightningModule):
         hash: Optional[str] = None,
         pretrained: bool = False,
         seed: int = 0,
+        pretrained_model_dir: Optional[str] = None,
     ):
         super().__init__()
         self.num_classes = num_source_classes
@@ -43,7 +44,7 @@ class BackpropODASaito(pl.LightningModule):
             self.optimizer_feat, self.optimizer_classifier  = \
             get_model_backprob(arch, dataset, self.num_outputs,\
             learning_rate=learning_rate, weight_decay=weight_decay,\
-            pretrained=pretrained, features=True)
+            pretrained=pretrained, features=True,pretrained_model_dir= pretrained_model_dir)
 
         self.learning_rate = learning_rate
         self.weight_decay = weight_decay

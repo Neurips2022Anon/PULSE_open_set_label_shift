@@ -28,7 +28,8 @@ class TrainPU(pl.LightningModule):
         hash: Optional[str] = None,
         pretrained: bool = False,
         seed: int = 0,
-        separate: bool = False
+        separate: bool = False,
+        pretrained_model_dir: Optional[str] = None
     ):
         super().__init__()
         self.num_classes = num_source_classes
@@ -40,15 +41,15 @@ class TrainPU(pl.LightningModule):
 
         if separate:
             self.source_model, self.optimizer_source = get_model(arch, dataset, self.num_outputs, pretrained= pretrained, \
-                            learning_rate= learning_rate, weight_decay= weight_decay)
+                            learning_rate= learning_rate, weight_decay= weight_decay,  pretrained_model_dir= pretrained_model_dir)
 
             self.discriminator_model, self.optimizer_discriminator = get_model(arch, dataset, 2, pretrained= pretrained, \
-                            learning_rate= learning_rate, weight_decay= weight_decay)
+                            learning_rate= learning_rate, weight_decay= weight_decay, pretrained_model_dir= pretrained_model_dir)
 
         else:
             self.source_model, self.discriminator_model, self.optimizer_source, self.optimizer_discriminator = \
                 get_combined_model(arch, dataset, self.num_outputs, pretrained= pretrained, \
-                            learning_rate= learning_rate, weight_decay= weight_decay, features=True)
+                            learning_rate= learning_rate, weight_decay= weight_decay, features=True, pretrained_model_dir= pretrained_model_dir)
 
         self.max_epochs = max_epochs
 

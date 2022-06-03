@@ -146,7 +146,7 @@ class TotalNet(nn.Module):
         return y, d, d_0
 
 
-def get_model_UAN(arch, num_classes, learning_rate, weight_decay, pretrained=False, features = True):
+def get_model_UAN(arch, num_classes, learning_rate, weight_decay, pretrained=False, features = True, pretrained_model_dir=None):
     model = TotalNet(arch, num_classes, pretrained, features)
 
     optimizer_feats =  torch.optim.SGD(

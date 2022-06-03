@@ -27,6 +27,7 @@ class TrainKPU(pl.LightningModule):
         hash: Optional[str] = None,
         pretrained: bool = False,
         seed: int = 0,
+        pretrained_model_dir: Optional[str] = None
     ):
         super().__init__()
         self.num_classes = num_source_classes
@@ -37,7 +38,7 @@ class TrainKPU(pl.LightningModule):
         self.num_outputs = self.num_classes*2
 
         self.model, self.optimizer_model = get_model(arch, dataset, self.num_outputs, \
-            learning_rate=learning_rate, weight_decay=weight_decay, pretrained= pretrained)
+            learning_rate=learning_rate, weight_decay=weight_decay, pretrained= pretrained,  pretrained_model_dir= pretrained_model_dir)
 
 
         self.learning_rate = learning_rate

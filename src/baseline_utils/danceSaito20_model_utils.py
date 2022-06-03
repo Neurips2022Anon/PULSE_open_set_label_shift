@@ -24,7 +24,7 @@ all_classifiers = {
 
 
 
-def get_model_dance(arch, dataset, num_classes, pretrained, learning_rate, weight_decay, features = False, temp_scale=False): 
+def get_model_dance(arch, dataset, num_classes, pretrained, learning_rate, weight_decay, features = False, temp_scale=False, pretrained_model_dir=None): 
 
     if dataset.lower().startswith("cifar") and arch in all_classifiers: 
         net = all_classifiers[arch](num_classes=num_classes, features=features)

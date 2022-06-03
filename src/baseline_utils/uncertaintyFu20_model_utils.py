@@ -235,7 +235,7 @@ def get_confidence(y_1):
     conf_1, indice_1 = torch.max(y_1, 1)
     return conf_1
 
-def get_model_CMU(arch, num_classes, learning_rate, weight_decay, pretrained=False, features = True):
+def get_model_CMU(arch, num_classes, learning_rate, weight_decay, pretrained=False, features = True, pretrained_model_dir=None):
 
     classifier = ImageClassifier(arch, num_classes, bottleneck_dim=256)
     domain_discriminator = DomainDiscriminator(classifier.features_dim, hidden_size=1024)

@@ -29,6 +29,7 @@ class UncertaintyFu20(pl.LightningModule):
         hash: Optional[str] = None,
         pretrained: bool = False,
         seed: int = 0,
+        pretrained_model_dir: Optional[str] = None
     ):
         super().__init__()
         self.num_classes = num_source_classes
@@ -39,7 +40,7 @@ class UncertaintyFu20(pl.LightningModule):
 
         self.classifier, self.domain_discriminator, self.esem, \
             self.optimizer_classifier, self.optimizer_domain_disc, self.optimizer_esem = \
-            get_model_CMU(arch, num_source_classes, learning_rate, weight_decay, pretrained=pretrained)
+            get_model_CMU(arch, num_source_classes, learning_rate, weight_decay, pretrained=pretrained,  pretrained_model_dir= pretrained_model_dir)
 
         self.domain_adv = DomainAdversarialLoss(self.domain_discriminator, reduction='none')
 

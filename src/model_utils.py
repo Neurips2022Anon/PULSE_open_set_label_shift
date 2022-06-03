@@ -17,7 +17,7 @@ all_classifiers = {
     "Densenet121": DenseNet121,
 }
 
-DIR_PATH = "path/to/models"
+# DIR_PATH = "path/to/models"
 
 def full_block(in_features, out_features, dropout):
     return nn.Sequential(
@@ -97,7 +97,7 @@ class FCNet(nn.Module):
 
 
 
-def get_model(arch, dataset, num_classes, pretrained, learning_rate, weight_decay, features = False): 
+def get_model(arch, dataset, num_classes, pretrained, learning_rate, weight_decay, features = False, pretrained_model_dir= None): 
 
     if dataset.lower().startswith("cifar") and arch in all_classifiers: 
         log.info(f"Using {arch} for {dataset} with {num_classes} classes")
@@ -105,7 +105,7 @@ def get_model(arch, dataset, num_classes, pretrained, learning_rate, weight_deca
 
         if pretrained: 
             log.debug(f"Loading SIMCLR pretrained model")
-            checkpoint = torch.load(f"{DIR_PATH}/simclr/simclr_cifar-20.pth.tar", map_location='cpu')
+            checkpoint = torch.load(f"{pretrained_model_dir}/simclr/simclr_cifar-20.pth.tar", map_location='cpu')
             state_dict = {k[9:]: v for k, v in checkpoint.items()}
             net.load_state_dict(state_dict, strict=False)
 
@@ -205,7 +205,7 @@ def get_model(arch, dataset, num_classes, pretrained, learning_rate, weight_deca
 
         if pretrained: 
             log.debug(f"Loading SIMCLR pretrained model")
-            checkpoint = torch.load(f"{DIR_PATH}/simclr/pretrained_models/resnet50_imagenet_bs2k_epochs600.pth.tar", map_location='cpu')
+            checkpoint = torch.load(f"{pretrained_model_dir}/simclr/pretrained_models/resnet50_imagenet_bs2k_epochs600.pth.tar", map_location='cpu')
             state_dict = {k[8:]: v for k, v in checkpoint['state_dict'].items()}
             net.load_state_dict(state_dict, strict=False)
 
@@ -237,7 +237,7 @@ def get_model(arch, dataset, num_classes, pretrained, learning_rate, weight_deca
         log.info(f"Using {arch} for {dataset} with {num_classes} classes")
 
         _, _, word_index = get_newsgroups()
-        embedding_matrix = glove_embeddings(f"{DIR_PATH}/glove_embeddings/glove.6B.100d.txt", word_index)
+        embedding_matrix = glove_embeddings(f"{pretrained_model_dir}/glove_embeddings/glove.6B.100d.txt", word_index)
 
         EMBEDDING_DIM = 100
 
@@ -288,7 +288,7 @@ def get_model(arch, dataset, num_classes, pretrained, learning_rate, weight_deca
     return net	
 
 
-def get_combined_model(arch, dataset, num_classes, pretrained, learning_rate, weight_decay, features = False): 
+def get_combined_model(arch, dataset, num_classes, pretrained, learning_rate, weight_decay, features = False, pretrained_model_dir=None): 
 
     if dataset.lower().startswith("cifar") and arch in all_classifiers: 
         log.info(f"Using {arch} for {dataset} with {num_classes} classes")
@@ -300,7 +300,7 @@ def get_combined_model(arch, dataset, num_classes, pretrained, learning_rate, we
 
         if pretrained: 
             log.debug(f"Loading SIMCLR pretrained model")
-            checkpoint = torch.load(f"{DIR_PATH}/simclr/simclr_cifar-20.pth.tar", map_location='cpu')
+            checkpoint = torch.load(f"{pretrained_model_dir}/simclr/simclr_cifar-20.pth.tar", map_location='cpu')
             state_dict = {k[9:]: v for k, v in checkpoint.items()}
             feature_extractor.load_state_dict(state_dict, strict=False)
 
@@ -339,7 +339,7 @@ def get_combined_model(arch, dataset, num_classes, pretrained, learning_rate, we
 
         if pretrained:
             log.debug(f"Loading SIMCLR pretrained model")
-            checkpoint = torch.load(f"{DIR_PATH}/simclr/pretrained_models/resnet50_imagenet_bs2k_epochs600.pth.tar", map_location='cpu')
+            checkpoint = torch.load(f"{pretrained_model_dir}/simclr/pretrained_models/resnet50_imagenet_bs2k_epochs600.pth.tar", map_location='cpu')
             state_dict = {k[8:]: v for k, v in checkpoint['state_dict'].items()}
             feature_extractor.load_state_dict(state_dict, strict=False)
 
@@ -480,7 +480,7 @@ def get_combined_model(arch, dataset, num_classes, pretrained, learning_rate, we
         log.info(f"Using {arch} for {dataset} with {num_classes} classes")
 
         _, _, word_index = get_newsgroups()
-        embedding_matrix = glove_embeddings(f"{DIR_PATH}/glove_embeddings/glove.6B.100d.txt", word_index)
+        embedding_matrix = glove_embeddings(f"{pretrained_model_dir}/glove_embeddings/glove.6B.100d.txt", word_index)
 
         EMBEDDING_DIM = 100
 
