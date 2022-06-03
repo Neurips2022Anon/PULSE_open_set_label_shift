@@ -10,6 +10,7 @@ work_dir: ${hydra:runtime.cwd}
 data_dir: "/path/to/data/dir"
 log_dir: ${work_dir}/${log_loc}
 output_dir: ${work_dir}/outputs/
+pretrained_model_dir: "${work_dir}/pretrained_models/"
 
 # path to folder with data
 data_loc: data
